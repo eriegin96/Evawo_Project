@@ -1,0 +1,31 @@
+.MuiLoadingButton-loadingIndicator.css-1yt7yx7-MuiLoadingButton-loadingIndicator {
+	left: unset;
+}
+
+audio {
+	width: 400px;
+	height: 22px;
+}
+
+.wordpage__phonetic {
+	position: relative;
+}
+
+.word-page__sound {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.MuiGrid-grid-xs-12 {
+	text-align: center;
+}
+
+.MuiGrid-grid-xs-3 {
+	text-align: right;
+}
+
+.MuiGrid-grid-xs-7 {
+	text-align: justify;
+}

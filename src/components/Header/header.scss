@@ -1,0 +1,28 @@
+.logo h2 {
+	display: inline-block;
+	color: #fff;
+	line-height: 1;
+	// font-family: 'pumpkin_storyregular';
+}
+
+.nav__link {
+	color: #fff;
+	text-transform: uppercase;
+	margin: 0 8px;
+	font-weight: bold;
+}
+
+.nav__link.active {
+	color: orange;
+}
+
+.header__user {
+	display: block;
+	color: unset;
+	width: 100%;
+}
+
+.MuiAvatar-root.MuiAvatar-circular {
+	width: 30px;
+	height: 30px;
+}

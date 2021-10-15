@@ -40,36 +40,29 @@ export default function App() {
 	const {
 		user: { uid },
 	} = useContext(AuthContext);
-	const { isLoading } = useContext(AppContext);
 	return (
 		<React.Fragment>
 			{/* <ThemeProvider theme={theme}> */}
 			<Header />
 			<Container>
 				<div className="container">
-					<Switch>
-						<Route path="/login">
-							{uid ? (
-								isLoading ? (
-									<CircularProgress />
-								) : (
-									<Redirect to="/" />
-								)
-							) : (
-								<LoginPage />
-							)}
-						</Route>
-						<Route path="/history/:word">
-							{uid ? <WordEditPage /> : <Redirect to="/" />}
-						</Route>
-						<Route path="/history">{uid ? <HistoryPage /> : <Redirect to="/" />}</Route>
-						<Route path="/trash">{uid ? <TrashPage /> : <Redirect to="/" />}</Route>
-						<Route path="/user">{uid ? <UserPage /> : <Redirect to="/" />}</Route>
-						<Route exact path="/">
-							{uid ? <WordPage /> : <HomePage />}
-						</Route>
-						<Route component={NotFound} />
-					</Switch>
+					{uid ? (
+						<Switch>
+							<Redirect from="/login" to="/" />
+							<Route path="/history" component={HistoryPage} />
+							<Route path="/trash" component={TrashPage} />
+							<Route path="/history/:word" component={WordEditPage} />
+							<Route path="/user" component={UserPage} />
+							<Route exact path="/" component={WordPage} />
+							<Route path="*" component={NotFound} />
+						</Switch>
+					) : (
+						<Switch>
+							<Route path="/login" component={LoginPage} />
+							<Route exact path="/" component={HomePage} />
+							<Redirect from="*" to="/" />
+						</Switch>
+					)}
 				</div>
 			</Container>
 			{/* </ThemeProvider> */}

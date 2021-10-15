@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CircularProgress } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridOverlay } from '@mui/x-data-grid';
 import renderCellExpand from './GridCellExpand';
 
 export const columns = [
@@ -59,9 +58,18 @@ export const columns = [
 	},
 ];
 
+const CustomNoRowsOverlay = () => {
+  return (
+    <GridOverlay>
+      <div>No words to show</div>
+    </GridOverlay>
+  );
+}
+
 export default function DataGridTable(props) {
 	const {
 		list,
+		loading,
 		pageSize,
 		handleSetPageSize,
 		handleSetSelectionModel,
@@ -71,35 +79,31 @@ export default function DataGridTable(props) {
 	} = props;
 
 	return (
-		<>
-			{list.length === 0 ? (
-				<CircularProgress />
-			) : (
-				<div style={{ height: 500, width: '100%' }}>
-					<div style={{ display: 'flex', height: '100%' }}>
-						<div style={{ flexGrow: 1 }}>
-							<DataGrid
-								rows={list}
-								columns={columns}
-								pageSize={pageSize}
-								onPageSizeChange={(newPageSize) => handleSetPageSize(newPageSize)}
-								rowsPerPageOptions={[10, 15, 20]}
-								checkboxSelection
-								disableSelectionOnClick
-								onSelectionModelChange={(newSelectionModel) => {
-									handleSetSelectionModel(newSelectionModel);
-									handleSetIsBtnDisabled(newSelectionModel.length === 0);
-								}}
-								selectionModel={selectionModel}
-								disableColumnMenu={true}
-								components={{
-									Toolbar: CustomToolbar,
-								}}
-							/>
-						</div>
-					</div>
+		<div style={{ height: 500, width: '100%' }}>
+			<div style={{ display: 'flex', height: '100%' }}>
+				<div style={{ flexGrow: 1 }}>
+					<DataGrid
+						rows={list}
+						columns={columns}
+						pageSize={pageSize}
+						onPageSizeChange={(newPageSize) => handleSetPageSize(newPageSize)}
+						rowsPerPageOptions={[10, 15, 20]}
+						checkboxSelection
+						disableSelectionOnClick
+						onSelectionModelChange={(newSelectionModel) => {
+							handleSetSelectionModel(newSelectionModel);
+							handleSetIsBtnDisabled(newSelectionModel.length === 0);
+						}}
+						selectionModel={selectionModel}
+						disableColumnMenu={true}
+						components={{
+							Toolbar: CustomToolbar,
+							NoRowsOverlay: CustomNoRowsOverlay,
+						}}
+						loading={loading}
+					/>
 				</div>
-			)}
-		</>
+			</div>
+		</div>
 	);
 }

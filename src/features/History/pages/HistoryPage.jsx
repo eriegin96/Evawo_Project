@@ -7,7 +7,7 @@ import DataGridTable from '../components/DataGridTable';
 import RemoveWordDialog from '../components/RemoveWordDialog';
 
 export default function History() {
-	const { historyList } = useContext(AppContext);
+	const { historyList, totalHistory } = useContext(AppContext);
 	const [pageSize, setPageSize] = useState(10);
 	const [selectionModel, setSelectionModel] = useState([]);
 	const [isBtnDisabled, setIsBtnDisabled] = useState(true);
@@ -29,6 +29,7 @@ export default function History() {
 		<>
 			<DataGridTable
 				list={historyList}
+				loading={totalHistory !== 0 && historyList.length === 0}
 				pageSize={pageSize}
 				handleSetPageSize={setPageSize}
 				handleSetSelectionModel={setSelectionModel}

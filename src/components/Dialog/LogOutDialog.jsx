@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { auth } from '../../firebase/config';
+import React from 'react';
 import {
 	Button,
 	Dialog,
@@ -9,15 +8,13 @@ import {
 	DialogTitle,
 } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import { AppContext } from '../../context/AppProvider';
+import { auth } from '../../firebase/config';
 
 export default function LogOutDialog(props) {
-	const { setIsLoading } = useContext(AppContext);
 	const { open, handleClose } = props;
 	const history = useHistory();
 
 	const handleLogOut = () => {
-		setIsLoading(true);
 		auth.signOut();
 		history.push('/');
 	};

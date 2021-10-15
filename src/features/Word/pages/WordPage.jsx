@@ -20,7 +20,7 @@ import { wordToArr } from '../../../utils/common';
 
 export default function WordPage() {
 	const { user } = useContext(AuthContext);
-	const { word, isLoading, totalWords } = useContext(AppContext);
+	const { word, totalWords } = useContext(AppContext);
 	const [isBtnLoading, setIsBtnLoading] = useState(false);
 	const { definition, example, origin, synonyms, antonyms } = word ?? {};
 	const wordMeaning = wordToArr({ definition, example, origin, synonyms, antonyms } || []);

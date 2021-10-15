@@ -1,12 +1,7 @@
-import renderCellExpand from './GridCellExpand';
 import { Link } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-import {
-	DataGrid,
-	GridToolbarContainer,
-	GridToolbarColumnsButton,
-	GridToolbarFilterButton,
-} from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
+import renderCellExpand from './GridCellExpand';
 
 export const columns = [
 	{ field: 'id', headerName: 'ID', width: 50 },
@@ -64,46 +59,47 @@ export const columns = [
 	},
 ];
 
-// export default function DataGridTable(props) {
-	// const {
-	// 	isLoading,
-	// 	list,
-	// 	pageSize,
-	// 	setPageSize,
-	// 	selectionModel,
-	// 	setSelectionModel,
-	// 	setIsBtnDisabled,
-	// 	CustomToolbar,
-	// } = props;
+export default function DataGridTable(props) {
+	const {
+		list,
+		pageSize,
+		handleSetPageSize,
+		handleSetSelectionModel,
+		handleSetIsBtnDisabled,
+		selectionModel,
+		CustomToolbar,
+	} = props;
 
-	// return (
-	// 	<div style={{ height: 500, width: '100%' }}>
-	// 		<div style={{ display: 'flex', height: '100%' }}>
-	// 			<div style={{ flexGrow: 1 }}>
-	// 				{isLoading ? (
-	// 					<CircularProgress />
-	// 				) : (
-	// 					<DataGrid
-	// 						rows={list}
-	// 						columns={columns}
-	// 						pageSize={pageSize}
-	// 						onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-	// 						rowsPerPageOptions={[10, 15, 20]}
-	// 						checkboxSelection
-	// 						disableSelectionOnClick
-	// 						onSelectionModelChange={(newSelectionModel) => {
-	// 							setSelectionModel(newSelectionModel);
-	// 							setIsBtnDisabled(newSelectionModel.length === 0);
-	// 						}}
-	// 						selectionModel={selectionModel}
-	// 						disableColumnMenu={true}
-	// 						components={{
-	// 							Toolbar: CustomToolbar,
-	// 						}}
-	// 					/>
-	// 				)}
-	// 			</div>
-	// 		</div>
-	// 	</div>
-	// );
-// }
+	return (
+		<>
+			{list.length === 0 ? (
+				<CircularProgress />
+			) : (
+				<div style={{ height: 500, width: '100%' }}>
+					<div style={{ display: 'flex', height: '100%' }}>
+						<div style={{ flexGrow: 1 }}>
+							<DataGrid
+								rows={list}
+								columns={columns}
+								pageSize={pageSize}
+								onPageSizeChange={(newPageSize) => handleSetPageSize(newPageSize)}
+								rowsPerPageOptions={[10, 15, 20]}
+								checkboxSelection
+								disableSelectionOnClick
+								onSelectionModelChange={(newSelectionModel) => {
+									handleSetSelectionModel(newSelectionModel);
+									handleSetIsBtnDisabled(newSelectionModel.length === 0);
+								}}
+								selectionModel={selectionModel}
+								disableColumnMenu={true}
+								components={{
+									Toolbar: CustomToolbar,
+								}}
+							/>
+						</div>
+					</div>
+				</div>
+			)}
+		</>
+	);
+}

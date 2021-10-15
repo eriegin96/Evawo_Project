@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { auth } from '../firebase/config';
+import { auth } from '../../firebase/config';
 import {
 	Button,
 	Dialog,
@@ -9,7 +9,7 @@ import {
 	DialogTitle,
 } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import { AppContext } from '../context/AppProvider';
+import { AppContext } from '../../context/AppProvider';
 
 export default function LogOutDialog(props) {
 	const { setIsLoading } = useContext(AppContext);

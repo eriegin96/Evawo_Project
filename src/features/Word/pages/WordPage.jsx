@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Grid, Tooltip, CircularProgress } from '@mui/material';
+import { Grid, Tooltip, CircularProgress, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // import { styled } from '@mui/material/styles';
 import SurroundSoundIcon from '@mui/icons-material/SurroundSound';
@@ -9,6 +9,7 @@ import { wordList } from '../dbWordList';
 import { AuthContext } from '../../../context/AuthProvider';
 import { AppContext } from '../../../context/AppProvider';
 import { addWord } from '../../../firebase/services';
+import { wordToArr } from '../../../utils/common';
 
 // const Item = styled('div')(({ theme }) => ({
 // 	...theme.typography.body1,
@@ -21,6 +22,8 @@ export default function WordPage() {
 	const { user } = useContext(AuthContext);
 	const { word, isLoading, totalWords } = useContext(AppContext);
 	const [isBtnLoading, setIsBtnLoading] = useState(false);
+	const { definition, example, origin, synonyms, antonyms } = word ?? {};
+	const wordMeaning = wordToArr({ definition, example, origin, synonyms, antonyms } || []);
 
 	function handleAudioClick() {
 		document.getElementById('word__audio').play();
@@ -48,15 +51,27 @@ export default function WordPage() {
 
 	return (
 		<>
-			{isLoading ? (
+			{!word ? (
 				<CircularProgress />
 			) : (
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<LoadingButton onClick={newWord} loading={isBtnLoading}>
+						<LoadingButton
+							onClick={newWord}
+							loading={isBtnLoading}
+							sx={{ left: 'unset' }}
+						>
 							New Word
 						</LoadingButton>
-						{word.word ? <h2>{word.word}</h2> : <></>}
+						{word.word ? (
+							<div>
+								<Typography variant="h4" component="h4" sx={{ fontWeight: 500 }}>
+									{word.word}
+								</Typography>
+							</div>
+						) : (
+							<></>
+						)}
 						{word.phonetic ? (
 							<div className="wordpage__phonetic">
 								{word.phonetic} &nbsp;
@@ -73,47 +88,14 @@ export default function WordPage() {
 						)}
 						{word.type ? <div>{word.type}</div> : <></>}
 					</Grid>
-					{word.definition ? (
-						<>
-							<Grid item xs={3} children="Definition" />
-							<Grid item xs={7} children={word.definition} />
-						</>
-					) : (
-						<></>
-					)}
-
-					{word.example ? (
-						<>
-							<Grid item xs={3} children="Example" />
-							<Grid item xs={7} children={word.example} />
-						</>
-					) : (
-						<></>
-					)}
-					{word.origin ? (
-						<>
-							<Grid item xs={3} children="Origin" />
-							<Grid item xs={7} children={word.origin} />
-						</>
-					) : (
-						<></>
-					)}
-					{word.synonyms ? (
-						<>
-							<Grid item xs={3} children="Synonyms" />
-							<Grid item xs={7} children={word.synonyms} />
-						</>
-					) : (
-						<></>
-					)}
-					{word.antonyms ? (
-						<>
-							<Grid item xs={3} children="Antonyms" />
-							<Grid item xs={7} children={word.antonyms} />
-						</>
-					) : (
-						<></>
-					)}
+					{wordMeaning
+						.filter((item) => !!item.content)
+						.map((item) => (
+							<React.Fragment key={item.title}>
+								<Grid item xs={3} children={item.title} />
+								<Grid item xs={7} children={item.content} />
+							</React.Fragment>
+						))}
 				</Grid>
 			)}
 		</>

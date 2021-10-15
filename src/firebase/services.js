@@ -55,7 +55,13 @@ export const addWord = (uid, wordId, data) => {
 		totalWords: increase(1),
 		totalHistory: increase(1),
 	});
-	wordRef.set({ ...data, isInHistory: true, isInTrash: false, isInArchive: false });
+	wordRef.set({
+		...data,
+		isInHistory: true,
+		isInTrash: false,
+		isInArchive: false,
+		createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+	});
 };
 
 export const updateWord = (uid, wordId, data) => {

@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { CircularProgress, Container } from '@mui/material';
+import '@fontsource/roboto';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { AuthContext } from './context/AuthProvider';
+import { AppContext } from './context/AppProvider';
 import Header from './components/Header/Header';
 import HomePage from './components/HomePage/HomePage';
 import NotFound from './components/NotFound/NotFound';
@@ -12,8 +15,6 @@ import WordEditPage from './features/Word/pages/WordEditPage';
 import HistoryPage from './features/History/pages/HistoryPage';
 import TrashPage from './features/History/pages/TrashPage';
 import UserPage from './features/User/pages/UserPage';
-import { AuthContext } from './context/AuthProvider';
-import { AppContext } from './context/AppProvider';
 
 // const theme = createTheme({
 // 	palette: {

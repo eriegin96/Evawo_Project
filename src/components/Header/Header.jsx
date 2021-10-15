@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import './header.scss';
 
-import LogOutDialog from '../LogOutDialog';
+import LogOutDialog from '../Dialog/LogOutDialog';
 import { AuthContext } from '../../context/AuthProvider';
 
 function User() {
@@ -32,7 +32,7 @@ function User() {
 	};
 
 	// Open/Close Logout Dialog
-	const [IsDialogOpen, setIsDiaLogOpen] = useState(false);
+	const [isDialogOpen, setIsDiaLogOpen] = useState(false);
 	const handleDialogOpen = () => {
 		setIsDiaLogOpen(true);
 	};
@@ -79,7 +79,7 @@ function User() {
 				</MenuItem>
 				<Divider />
 				<MenuItem onClick={handleDialogOpen}>Log Out</MenuItem>
-				<LogOutDialog open={IsDialogOpen} handleClose={handleDialogClose} />
+				<LogOutDialog open={isDialogOpen} handleClose={handleDialogClose} />
 			</Menu>
 		</React.Fragment>
 	);

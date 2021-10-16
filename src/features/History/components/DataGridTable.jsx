@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { DataGrid, GridOverlay } from '@mui/x-data-grid';
-import renderCellExpand from './GridCellExpand';
+import renderCellExpand from './ExpandGridCell';
 
 export const columns = [
 	{ field: 'id', headerName: 'ID', width: 50 },

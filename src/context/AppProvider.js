@@ -9,6 +9,7 @@ export default function AppProvider({ children }) {
 	const userInfo = useFirestoreUser(user.uid);
 	const { currentWord : word, totalWords, totalHistory, totalTrash } = userInfo;
 	const historyList = useFirestoreList(user.uid, 'isInHistory');
+	const revisionList = useFirestoreList(user.uid, 'isInRevision');
 	const trashList = useFirestoreList(user.uid, 'isInTrash');
 
 	return (
@@ -16,6 +17,7 @@ export default function AppProvider({ children }) {
 			value={{
 				word,
 				historyList,
+				revisionList,
 				trashList,
 				totalWords,
 				totalHistory,

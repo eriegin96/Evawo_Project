@@ -1,12 +1,14 @@
-import React, { useState, useContext } from 'react';
-import './historyPage.scss';
-import { removeToTrash } from '../../../firebase/services';
+import React, { useState, useContext, useCallback } from 'react';
+import './history.scss';
+import { AuthContext } from '../../../context/AuthProvider';
 import { AppContext } from '../../../context/AppProvider';
 import { HistoryToolbar } from '../components/CustomToolbar';
 import DataGridTable from '../components/DataGridTable';
 import RemoveWordDialog from '../components/RemoveWordDialog';
+import { addToRevision, removeToTrash } from '../../../firebase/services';
 
 export default function History() {
+	const { user } = useContext(AuthContext);
 	const { historyList, totalHistory } = useContext(AppContext);
 	const [pageSize, setPageSize] = useState(10);
 	const [selectionModel, setSelectionModel] = useState([]);
@@ -21,8 +23,21 @@ export default function History() {
 		setIsDialogOpen(false);
 	};
 
+	const reviseWord = useCallback(
+		() => () => {
+			addToRevision(user.uid, selectionModel);
+		},
+		[selectionModel]
+	);
+
 	function CustomToolbar() {
-		return <HistoryToolbar isBtnDisabled={isBtnDisabled} handleClickRemove={openDialog} />;
+		return (
+			<HistoryToolbar
+				isBtnDisabled={isBtnDisabled}
+				handleRevise={reviseWord()}
+				handleRemove={openDialog}
+			/>
+		);
 	}
 
 	return (

@@ -5,7 +5,7 @@ export const useFirestoreList = (uid, condition) => {
 	const [documents, setDocuments] = useState([]);
 
 	useEffect(() => {
-		let collectionRef = db.collection(`users/${uid}/history`).orderBy('createdAt');
+		let collectionRef = db.collection(`users/${uid}/words`).orderBy('createdAt');
 
 		collectionRef = collectionRef.where(condition, '==', true);
 
@@ -44,9 +44,31 @@ export const useFirestoreWordEdit = (uid, word) => {
 	const [document, setDocument] = useState(null);
 
 	useEffect(() => {
-		let collectionRef = db.collection(`users/${uid}/history`);
+		let collectionRef = db.collection(`users/${uid}/words`);
 
 		collectionRef = collectionRef.where('word', '==', word).where('isInArchive', '==', false);
+
+		const unsubscribe = collectionRef.onSnapshot((snapshot) => {
+			const documents = snapshot.docs.map((doc) => ({
+				...doc.data(),
+			}));
+
+			setDocument(documents[0]);
+		});
+
+		return unsubscribe;
+	}, [uid, word]);
+
+	return document;
+};
+
+export const useFirestoreWordRevision = (uid, word) => {
+	const [document, setDocument] = useState(null);
+
+	useEffect(() => {
+		let collectionRef = db.collection(`users/${uid}/words`);
+
+		collectionRef = collectionRef.where('word', '==', word).where('isInArchive', '==', false).where('isInRevision', '==', true);
 
 		const unsubscribe = collectionRef.onSnapshot((snapshot) => {
 			const documents = snapshot.docs.map((doc) => ({

@@ -10,10 +10,10 @@
 	text-transform: uppercase;
 	margin: 0 8px;
 	font-weight: bold;
-}
 
-.nav__link.active {
-	color: orange;
+	&.active {
+		color: orange;
+	}
 }
 
 .header__user {
@@ -25,4 +25,12 @@
 .MuiAvatar-root.MuiAvatar-circular {
 	width: 30px;
 	height: 30px;
+}
+
+.notification__link {
+	display: inline-block;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 8px;
 }

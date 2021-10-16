@@ -1,105 +1,37 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-
-import {
-	AppBar,
-	Button,
-	Box,
-	Toolbar,
-	IconButton,
-	Menu,
-	MenuItem,
-	Avatar,
-	Tooltip,
-	Divider,
-} from '@mui/material';
+import { AppBar, Button, Box, Toolbar, Tooltip } from '@mui/material';
 import './header.scss';
-
-import LogOutDialog from '../Dialog/LogOutDialog';
+import UserAvatar from './UserAvatar';
 import { AuthContext } from '../../context/AuthProvider';
-
-function User() {
-	const { user } = useContext(AuthContext);
-
-	// Open/Close userMenu
-	const [anchorEl, setAnchorEl] = useState(null);
-	const isMenuOpen = Boolean(anchorEl);
-	const handleMenuOpen = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleMenuClose = () => {
-		setAnchorEl(null);
-	};
-
-	// Open/Close Logout Dialog
-	const [isDialogOpen, setIsDiaLogOpen] = useState(false);
-	const handleDialogOpen = () => {
-		setIsDiaLogOpen(true);
-	};
-
-	const handleDialogClose = () => {
-		setIsDiaLogOpen(false);
-	};
-
-	return (
-		<React.Fragment>
-			<IconButton
-				size="large"
-				edge="end"
-				aria-label="account of current user"
-				aria-controls="primary-search-account-menu"
-				aria-haspopup="true"
-				onClick={handleMenuOpen}
-				color="inherit"
-			>
-				<Tooltip title={user?.displayName}>
-					<Avatar src={user?.photoURL} alt="Eire Gin" />
-				</Tooltip>
-			</IconButton>
-			<Menu
-				anchorEl={anchorEl}
-				anchorOrigin={{
-					vertical: 'top',
-					horizontal: 'right',
-				}}
-				id="primary-search-account-menu"
-				keepMounted
-				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'right',
-				}}
-				open={isMenuOpen}
-				onClick={handleMenuClose}
-				onClose={handleMenuClose}
-			>
-				<MenuItem >
-					<Link to="/user" className="header__user">
-						My Account
-					</Link>
-				</MenuItem>
-				<Divider />
-				<MenuItem onClick={handleDialogOpen}>Log Out</MenuItem>
-				<LogOutDialog open={isDialogOpen} handleClose={handleDialogClose} />
-			</Menu>
-		</React.Fragment>
-	);
-}
+import UserNotification from './UserNotification';
 
 function LoggedIn() {
 	return (
-		<React.Fragment>
-			<Tooltip title="Go to History">
-				<NavLink to="/history" className="nav__link">
-					History
-				</NavLink>
-			</Tooltip>
-			<Tooltip title="Go to Trash">
-				<NavLink to="/trash" className="nav__link">
-					Trash
-				</NavLink>
-			</Tooltip>
-			<User />
-		</React.Fragment>
+		<>
+			<Box>
+				<Tooltip title="Go to History">
+					<NavLink to="/history" className="nav__link">
+						History
+					</NavLink>
+				</Tooltip>
+				<Tooltip title="Go to Revision">
+					<NavLink to="/revision" className="nav__link">
+						Revision
+					</NavLink>
+				</Tooltip>
+				<Tooltip title="Go to Trash">
+					<NavLink to="/trash" className="nav__link">
+						Trash
+					</NavLink>
+				</Tooltip>
+			</Box>
+			<Box sx={{ flexGrow: 1 }} />
+			<Box>
+				<UserNotification />
+				<UserAvatar />
+			</Box>
+		</>
 	);
 }
 

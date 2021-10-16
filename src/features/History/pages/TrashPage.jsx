@@ -24,7 +24,7 @@ export default function Trash() {
 		setIsDialogOpen(false);
 	};
 
-	const restoreWord = useCallback(
+	const restoreWords = useCallback(
 		() => () => {
 			restoreToHistory(user.uid, selectionModel);
 		},
@@ -35,7 +35,7 @@ export default function Trash() {
 		return (
 			<TrashToolbar
 				isBtnDisabled={isBtnDisabled}
-				handleRestore={restoreWord()}
+				handleRestore={restoreWords()}
 				handleDelete={openDialog}
 			/>
 		);

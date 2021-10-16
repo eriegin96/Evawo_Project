@@ -29,7 +29,7 @@ export default function HomePage() {
 				</Item>
 			</Grid>
 			<Grid item xs={12} className="footer">
-				<Item>Copyright by @</Item>
+				<Item>Copyright by @eriegin96</Item>
 			</Grid>
 		</Grid>
 	);

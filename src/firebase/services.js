@@ -6,11 +6,11 @@ const increase = (value) => {
 
 const editList = (uid, wordIds, wordRefData, userRefData) => {
 	const batch = db.batch();
-	const userRef = db.collection('users').doc(uid);
-	const wordRef = db.collection(`users/${uid}/history`);
+	const userRef = db.doc(`users/${uid}`);
+	const wordsRef = db.collection(`users/${uid}/words`);
 
 	for (let i = 0; i < wordIds.length; i++) {
-		batch.update(wordRef.doc(wordIds[i].toString()), wordRefData);
+		batch.update(wordsRef.doc(wordIds[i].toString()), wordRefData);
 		batch.update(userRef, userRefData);
 	}
 
@@ -18,7 +18,7 @@ const editList = (uid, wordIds, wordRefData, userRefData) => {
 };
 
 export const getUserData = (uid) => {
-	const userRef = db.collection('users').doc(uid);
+	const userRef = db.doc(`users/${uid}`);
 	return userRef
 		.get()
 		.then((user) => {
@@ -34,7 +34,8 @@ export const getUserData = (uid) => {
 };
 
 export const addUser = (uid, data) => {
-	const userRef = db.collection('users').doc(uid);
+	const userRef = db.doc(`users/${uid}`);
+
 	userRef.set({
 		...data,
 		currentWord: {},
@@ -42,13 +43,14 @@ export const addUser = (uid, data) => {
 		totalHistory: 0,
 		totalTrash: 0,
 		totalArchive: 0,
+		totalRevision: 0,
 		createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 	});
 };
 
 export const addWord = (uid, wordId, data) => {
-	const userRef = db.collection('users').doc(uid);
-	const wordRef = db.collection(`users/${uid}/history`).doc(wordId);
+	const userRef = db.doc(`users/${uid}`);
+	const wordRef = db.doc(`users/${uid}/words/${wordId}`);
 
 	userRef.update({
 		currentWord: { ...data },
@@ -60,12 +62,13 @@ export const addWord = (uid, wordId, data) => {
 		isInHistory: true,
 		isInTrash: false,
 		isInArchive: false,
+		isInRevision: false,
 		createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 	});
 };
 
 export const updateWord = (uid, wordId, data) => {
-	const wordRef = db.collection(`users/${uid}/history`).doc(wordId);
+	const wordRef = db.doc(`users/${uid}/words/${wordId}`);
 
 	wordRef.update({ ...data });
 };
@@ -85,5 +88,22 @@ export const restoreToHistory = (uid, wordIds) => {
 export const removeToArchive = (uid, wordIds) => {
 	const wordRefData = { isInTrash: false, isInArchive: true };
 	const userRefData = { totalTrash: increase(-1), totalArchive: increase(1) };
+	editList(uid, wordIds, wordRefData, userRefData);
+};
+
+export const addToRevision = (uid, wordIds) => {
+	const wordRefData = { isInRevision: true };
+	const userRefData = { totalRevision: increase(1) };
+	editList(uid, wordIds, wordRefData, userRefData);
+};
+
+export const editRevision = (uid, wordId, data) => {
+	const wordRef = db.doc(`users/${uid}/words/${wordId}`);
+	wordRef.update({ revisionTime: firebase.firestore.FieldValue.serverTimestamp() });
+};
+
+export const removeFromRevision = (uid, wordIds) => {
+	const wordRefData = { isInRevision: true };
+	const userRefData = { totalRevision: increase(-1) };
 	editList(uid, wordIds, wordRefData, userRefData);
 };

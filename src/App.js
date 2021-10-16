@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { CircularProgress, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import '@fontsource/roboto';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { AuthContext } from './context/AuthProvider';
-import { AppContext } from './context/AppProvider';
 import Header from './components/Header/Header';
 import HomePage from './components/HomePage/HomePage';
 import NotFound from './components/NotFound/NotFound';
 import LoginPage from './features/Auth/pages/LoginPage';
-import WordPage from './features/Word/pages/WordPage';
-import WordEditPage from './features/Word/pages/WordEditPage';
+import NewWordPage from './features/Word/pages/NewWordPage';
+import HistoryWordPage from './features/Word/pages/HistoryWordPage';
 import HistoryPage from './features/History/pages/HistoryPage';
 import TrashPage from './features/History/pages/TrashPage';
+import RevisionPage from './features/Revision/pages/RevisionPage';
 import UserPage from './features/User/pages/UserPage';
 
 // const theme = createTheme({
@@ -49,11 +49,13 @@ export default function App() {
 					{uid ? (
 						<Switch>
 							<Redirect from="/login" to="/" />
+							<Route path="/history/:word" component={HistoryWordPage} />
 							<Route path="/history" component={HistoryPage} />
 							<Route path="/trash" component={TrashPage} />
-							<Route path="/history/:word" component={WordEditPage} />
+							{/* <Route path="/revision/:word" component={HistoryWordPage} /> */}
+							<Route path="/revision/" component={RevisionPage} />
 							<Route path="/user" component={UserPage} />
-							<Route exact path="/" component={WordPage} />
+							<Route exact path="/" component={NewWordPage} />
 							<Route path="*" component={NotFound} />
 						</Switch>
 					) : (

@@ -1,0 +1,26 @@
+audio {
+	width: 400px;
+	height: 22px;
+}
+
+.word-page__phonetic {
+	position: relative;
+}
+
+.word-page__sound {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.word-page--loading {
+	position: relative;
+	left: calc(50% - 20px);
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.word-page__btn {
+	margin: 0 8px !important;
+} 

@@ -24,7 +24,7 @@ function isOverflown(element) {
 	return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }
 
-const GridCellExpand = React.memo(function GridCellExpand(props) {
+const ExpandGridCell = React.memo(function ExpandGridCell(props) {
 	const { width, value } = props;
 	const wrapper = useRef(null);
 	const cellDiv = useRef(null);
@@ -87,7 +87,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
 				<Popper
 					open={showFullCell && anchorEl !== null}
 					anchorEl={anchorEl}
-					style={{ width, offsetLeft: -17 }}
+					style={{ width, offsetLeft: -17, boxShadow: '1px 1px 2px 0'}}
 				>
 					<Paper elevation={1} style={{ minHeight: wrapper.current.offsetHeight - 3 }}>
 						<Typography variant="body2" style={{ padding: 8 }}>
@@ -102,7 +102,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
 
 export default function renderCellExpand(params) {
 	return (
-		<GridCellExpand
+		<ExpandGridCell
 			value={params.value ? params.value.toString() : ''}
 			width={params.colDef.computedWidth}
 		/>

@@ -7,9 +7,10 @@ import {
 } from '@mui/x-data-grid';
 import RestoreIcon from '@mui/icons-material/Restore';
 import DeleteIcon from '@mui/icons-material/Delete';
+import BookIcon from '@mui/icons-material/Book';
 
 export function HistoryToolbar(props) {
-	const { isBtnDisabled, handleClickRemove } = props;
+	const { isBtnDisabled, handleRevise, handleRemove } = props;
 
 	return (
 		<GridToolbarContainer>
@@ -18,11 +19,22 @@ export function HistoryToolbar(props) {
 			<Button
 				size="small"
 				variant="outlined"
+				color="success"
+				disabled={isBtnDisabled}
+				style={{ margin: '0 4px' }}
+				startIcon={<BookIcon />}
+				onClick={handleRevise}
+			>
+				Add to Revision
+			</Button>
+			<Button
+				size="small"
+				variant="outlined"
 				color="error"
 				disabled={isBtnDisabled}
 				style={{ margin: '0 4px' }}
 				startIcon={<DeleteIcon />}
-				onClick={handleClickRemove}
+				onClick={handleRemove}
 			>
 				Move to Trash
 			</Button>

@@ -13,7 +13,7 @@ import NewWordPage from './features/Word/pages/NewWordPage';
 import HistoryWordPage from './features/Word/pages/HistoryWordPage';
 import HistoryPage from './features/History/pages/HistoryPage';
 import TrashPage from './features/History/pages/TrashPage';
-import RevisionPage from './features/Revision/pages/RevisionPage';
+// import RevisionPage from './features/Revision/pages/RevisionPage';
 import UserPage from './features/User/pages/UserPage';
 
 // const theme = createTheme({
@@ -52,8 +52,7 @@ export default function App() {
 							<Route path="/history/:word" component={HistoryWordPage} />
 							<Route path="/history" component={HistoryPage} />
 							<Route path="/trash" component={TrashPage} />
-							{/* <Route path="/revision/:word" component={HistoryWordPage} /> */}
-							<Route path="/revision/" component={RevisionPage} />
+							{/* <Route path="/revision/" component={RevisionPage} /> */}
 							<Route path="/user" component={UserPage} />
 							<Route exact path="/" component={NewWordPage} />
 							<Route path="*" component={NotFound} />

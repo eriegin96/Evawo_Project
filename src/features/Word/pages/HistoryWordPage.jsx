@@ -39,7 +39,7 @@ export default function HistoryWordPage() {
 	};
 
 	const handleSetRevision = () => {
-		console.log(word)
+		console.log(word.createdAt.toDate().getDay())
 	}
 
 	const submitWordEdit = () => {

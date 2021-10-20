@@ -15,11 +15,11 @@ function LoggedIn() {
 						History
 					</NavLink>
 				</Tooltip>
-				<Tooltip title="Go to Revision">
+				{/* <Tooltip title="Go to Revision">
 					<NavLink to="/revision" className="nav__link">
 						Revision
 					</NavLink>
-				</Tooltip>
+				</Tooltip> */}
 				<Tooltip title="Go to Trash">
 					<NavLink to="/trash" className="nav__link">
 						Trash
@@ -28,7 +28,7 @@ function LoggedIn() {
 			</Box>
 			<Box sx={{ flexGrow: 1 }} />
 			<Box>
-				<UserNotification />
+				{/* <UserNotification /> */}
 				<UserAvatar />
 			</Box>
 		</>

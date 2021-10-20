@@ -81,7 +81,7 @@ export default function UserNotification() {
 								underline="none"
 								className="notification__link"
 							> */}
-							<RouterLink to="/user" className="header__user">
+							<RouterLink to="/revision" className="header__user">
 								<Typography variant="subtitle2" sx={{ p: 1 }}>
 									Word 'alibaba': Revise this word
 								</Typography>

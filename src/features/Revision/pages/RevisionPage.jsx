@@ -21,8 +21,6 @@ export default function RevisionPage() {
 	const { user } = useContext(AuthContext);
 	const { revisionList } = useContext(AppContext);
 
-	console.log(revisionList);
-
 	return (
 		<div>
 			<Grid container spacing={2}>

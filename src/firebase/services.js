@@ -74,8 +74,12 @@ export const updateWord = (uid, wordId, data) => {
 };
 
 export const removeToTrash = (uid, wordIds) => {
-	const wordRefData = { isInHistory: false, isInTrash: true };
-	const userRefData = { totalHistory: increase(-1), totalTrash: increase(1) };
+	const wordRefData = { isInHistory: false, isInTrash: true, isInRevision: false };
+	const userRefData = {
+		totalHistory: increase(-1),
+		totalTrash: increase(1),
+		totalRevision: increase(-1),
+	};
 	editList(uid, wordIds, wordRefData, userRefData);
 };
 
@@ -99,11 +103,11 @@ export const addToRevision = (uid, wordIds) => {
 
 export const editRevision = (uid, wordId, data) => {
 	const wordRef = db.doc(`users/${uid}/words/${wordId}`);
-	wordRef.update({ revisionTime: firebase.firestore.FieldValue.serverTimestamp() });
+	wordRef.update({ revisionTime: data });
 };
 
 export const removeFromRevision = (uid, wordIds) => {
-	const wordRefData = { isInRevision: true };
+	const wordRefData = { isInRevision: false };
 	const userRefData = { totalRevision: increase(-1) };
 	editList(uid, wordIds, wordRefData, userRefData);
 };

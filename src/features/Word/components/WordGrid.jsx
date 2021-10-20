@@ -15,7 +15,7 @@ export default function WordGrid(props) {
 				<Typography variant="h4" component="h4" sx={{ fontWeight: 500 }}>
 					{word.word}
 				</Typography>
-				{word.phonetic ? (
+				{word.phonetic && (
 					<div className="word-page__phonetic">
 						{word.phonetic} &nbsp;
 						<audio id="word__audio" src={word.audio}></audio>
@@ -26,10 +26,8 @@ export default function WordGrid(props) {
 							/>
 						</Tooltip>
 					</div>
-				) : (
-					<></>
 				)}
-				{word.type ? <div>{word.type}</div> : <></>}
+				{word.type && <div>{word.type}</div>}
 			</Grid>
 			{isEditing
 				? wordMeaning.map((item) => (

@@ -1,25 +1,27 @@
 import React, { useState, useContext, useCallback } from 'react';
 import './history.scss';
+import { Menu, MenuItem } from '@mui/material';
 import { AuthContext } from '../../../context/AuthProvider';
 import { AppContext } from '../../../context/AppProvider';
 import { HistoryToolbar } from '../components/CustomToolbar';
 import DataGridTable from '../components/DataGridTable';
 import RemoveWordDialog from '../components/RemoveWordDialog';
-import { addToRevision, removeToTrash } from '../../../firebase/services';
+import { addToRevision, removeFromRevision, removeToTrash } from '../../../firebase/services';
 
-export default function History() {
+export default function HistoryPage() {
 	const { user } = useContext(AuthContext);
-	const { historyList, totalHistory } = useContext(AppContext);
-	const [pageSize, setPageSize] = useState(10);
+	const { historyList, totalHistory, revisionList, notRevisionList } = useContext(AppContext);
+	const [pageSize, setPageSize] = useState(5);
 	const [selectionModel, setSelectionModel] = useState([]);
+	const [isViewMode, setIsViewMode] = useState(true);
 	const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-	const openDialog = () => {
+	const handleOpenDialog = () => {
 		setIsDialogOpen(true);
 	};
 
-	const closeDialog = () => {
+	const handleCloseDialog = () => {
 		setIsDialogOpen(false);
 	};
 
@@ -30,12 +32,29 @@ export default function History() {
 		[selectionModel]
 	);
 
+	const handleClickAddRevision = useCallback(
+		() => () => {
+			console.log(selectionModel);
+			// addToRevision(user.uid, selectionModel);
+		},
+		[selectionModel]
+	);
+
+	const handleClickRemoveRevision = useCallback(
+		() => () => {
+			// removeFromRevision(user.uid, selectionModel);
+		},
+		[selectionModel]
+	);
+
 	function CustomToolbar() {
 		return (
 			<HistoryToolbar
+				isViewMode={isViewMode}
+				setIsViewMode={setIsViewMode}
 				isBtnDisabled={isBtnDisabled}
 				handleRevise={reviseWord()}
-				handleRemove={openDialog}
+				handleRemove={handleOpenDialog}
 			/>
 		);
 	}
@@ -43,7 +62,7 @@ export default function History() {
 	return (
 		<>
 			<DataGridTable
-				list={historyList}
+				list={isViewMode ? historyList : notRevisionList}
 				loading={totalHistory !== 0 && historyList.length === 0}
 				pageSize={pageSize}
 				handleSetPageSize={setPageSize}
@@ -58,7 +77,7 @@ export default function History() {
 				content="Remove to Trash?"
 				selectionModel={selectionModel}
 				open={isDialogOpen}
-				handleClose={closeDialog}
+				handleClose={handleCloseDialog}
 			/>
 		</>
 	);

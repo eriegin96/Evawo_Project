@@ -1,70 +1,89 @@
 import { Link } from 'react-router-dom';
-import { DataGrid, GridOverlay } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridOverlay } from '@mui/x-data-grid';
 import renderCellExpand from './ExpandGridCell';
+import { useMemo } from 'react';
+import { Button } from '@mui/material';
 
-export const columns = [
-	{ field: 'id', headerName: 'ID', width: 50 },
-	{
-		field: 'word',
-		headerName: 'Word',
-		width: 150,
-		renderCell: (params) => <Link to={`/history/${params.value}`}>{params.value}</Link>,
-	},
-	{
-		field: 'phonetic',
-		headerName: 'Phonetic',
-		width: 100,
-		sortable: false,
-	},
-	{
-		field: 'type',
-		headerName: 'Type',
-		width: 80,
-	},
-	{
-		field: 'definition',
-		headerName: 'Definition',
-		width: 400,
-		sortable: false,
-		renderCell: renderCellExpand,
-	},
-	{
-		field: 'example',
-		headerName: 'Example',
-		width: 350,
-		sortable: false,
-		renderCell: renderCellExpand,
-	},
-	{
-		field: 'origin',
-		headerName: 'Origin',
-		width: 200,
-		sortable: false,
-		renderCell: renderCellExpand,
-	},
-	{
-		field: 'synonyms',
-		headerName: 'Synonyms',
-		width: 150,
-		sortable: false,
-		renderCell: renderCellExpand,
-	},
-	{
-		field: 'antonyms',
-		headerName: 'Antonyms',
-		width: 100,
-		sortable: false,
-		renderCell: renderCellExpand,
-	},
-];
+// export const columns = [
+// 	{ field: 'id', headerName: 'ID', width: 50, type: 'number' },
+// 	{
+// 		field: 'isInRevision',
+// 		headerName: 'Revision',
+// 		width: 100,
+// 		type: 'boolean',
+// 	},
+// 	{
+// 		field: 'actions',
+// 		type: 'actions',
+// 		width: 80,
+// 		getActions: (params) => [
+// 			<GridActionsCellItem
+// 				label="Revise"
+// 				onClick={/* deleteUser(params.id) */ () => console.log('click', params)}
+// 			/>,
+// 		],
+// 	},
+// 	{
+// 		field: 'word',
+// 		headerName: 'Word',
+// 		width: 150,
+// 		renderCell: (params) => <Link to={`/history/${params.value}`}>{params.value}</Link>,
+// 	},
+// 	{
+// 		field: 'phonetic',
+// 		headerName: 'Phonetic',
+// 		width: 100,
+// 		sortable: false,
+// 	},
+// 	{
+// 		field: 'type',
+// 		headerName: 'Type',
+// 		width: 80,
+// 	},
+// 	{
+// 		field: 'definition',
+// 		headerName: 'Definition',
+// 		width: 400,
+// 		sortable: false,
+// 		renderCell: renderCellExpand,
+// 	},
+// 	{
+// 		field: 'example',
+// 		headerName: 'Example',
+// 		width: 350,
+// 		sortable: false,
+// 		renderCell: renderCellExpand,
+// 	},
+// 	{
+// 		field: 'origin',
+// 		headerName: 'Origin',
+// 		width: 200,
+// 		sortable: false,
+// 		renderCell: renderCellExpand,
+// 	},
+// 	{
+// 		field: 'synonyms',
+// 		headerName: 'Synonyms',
+// 		width: 150,
+// 		sortable: false,
+// 		renderCell: renderCellExpand,
+// 	},
+// 	{
+// 		field: 'antonyms',
+// 		headerName: 'Antonyms',
+// 		width: 100,
+// 		sortable: false,
+// 		renderCell: renderCellExpand,
+// 	},
+// ];
 
 const CustomNoRowsOverlay = () => {
-  return (
-    <GridOverlay>
-      <div>No words to show</div>
-    </GridOverlay>
-  );
-}
+	return (
+		<GridOverlay>
+			<div>No words to show</div>
+		</GridOverlay>
+	);
+};
 
 export default function DataGridTable(props) {
 	const {
@@ -72,11 +91,87 @@ export default function DataGridTable(props) {
 		loading,
 		pageSize,
 		handleSetPageSize,
-		handleSetSelectionModel,
 		handleSetIsBtnDisabled,
 		selectionModel,
+		handleSetSelectionModel,
 		CustomToolbar,
 	} = props;
+
+	const columns = useMemo(
+		() => [
+			{ field: 'id', headerName: 'ID', width: 50, type: 'number' },
+			// {
+			// 	field: 'isInRevision',
+			// 	headerName: 'Revision',
+			// 	width: 100,
+			// 	type: 'boolean',
+			// },
+			{
+				field: 'word',
+				headerName: 'Word',
+				width: 150,
+				renderCell: (params) => <Link to={`/history/${params.value}`}>{params.value}</Link>,
+			},
+			{
+				field: 'phonetic',
+				headerName: 'Phonetic',
+				width: 100,
+				sortable: false,
+			},
+			{
+				field: 'type',
+				headerName: 'Type',
+				width: 80,
+			},
+			{
+				field: 'definition',
+				headerName: 'Definition',
+				width: 400,
+				sortable: false,
+				renderCell: renderCellExpand,
+			},
+			{
+				field: 'example',
+				headerName: 'Example',
+				width: 350,
+				sortable: false,
+				renderCell: renderCellExpand,
+			},
+			{
+				field: 'origin',
+				headerName: 'Origin',
+				width: 200,
+				sortable: false,
+				renderCell: renderCellExpand,
+			},
+			{
+				field: 'synonyms',
+				headerName: 'Synonyms',
+				width: 150,
+				sortable: false,
+				renderCell: renderCellExpand,
+			},
+			{
+				field: 'antonyms',
+				headerName: 'Antonyms',
+				width: 100,
+				sortable: false,
+				renderCell: renderCellExpand,
+			},
+			// {
+			// 	field: 'actions',
+			// 	headerName: 'Actions',
+			// 	type: 'actions',
+			// 	width: 80,
+			// 	getActions: (params) => [
+			// 		<GridActionsCellItem
+			// 			// onClick={/* deleteUser(params.id) */ () => console.log('click', params)}
+			// 		/>,
+			// 	],
+			// },
+		],
+		[]
+	);
 
 	return (
 		<div style={{ height: 500, width: '100%' }}>
@@ -87,15 +182,15 @@ export default function DataGridTable(props) {
 						columns={columns}
 						pageSize={pageSize}
 						onPageSizeChange={(newPageSize) => handleSetPageSize(newPageSize)}
-						rowsPerPageOptions={[10, 15, 20]}
+						rowsPerPageOptions={[5, 10, 15, 20]}
 						checkboxSelection
 						disableSelectionOnClick
+						disableColumnMenu={true}
+						selectionModel={selectionModel}
 						onSelectionModelChange={(newSelectionModel) => {
 							handleSetSelectionModel(newSelectionModel);
 							handleSetIsBtnDisabled(newSelectionModel.length === 0);
 						}}
-						selectionModel={selectionModel}
-						disableColumnMenu={true}
 						components={{
 							Toolbar: CustomToolbar,
 							NoRowsOverlay: CustomNoRowsOverlay,

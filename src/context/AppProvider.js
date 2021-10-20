@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { useFirestoreList, useFirestoreUser } from '../hooks/useFirestore';
+import { useFirestoreList, useFirestoreNotInRevisionList, useFirestoreUser } from '../hooks/useFirestore';
 import { AuthContext } from './AuthProvider';
 
 export const AppContext = createContext();
@@ -10,6 +10,7 @@ export default function AppProvider({ children }) {
 	const { currentWord : word, totalWords, totalHistory, totalTrash } = userInfo;
 	const historyList = useFirestoreList(user.uid, 'isInHistory');
 	const revisionList = useFirestoreList(user.uid, 'isInRevision');
+	const notRevisionList = useFirestoreNotInRevisionList(user.uid);
 	const trashList = useFirestoreList(user.uid, 'isInTrash');
 
 	return (
@@ -18,6 +19,7 @@ export default function AppProvider({ children }) {
 				word,
 				historyList,
 				revisionList,
+				notRevisionList,
 				trashList,
 				totalWords,
 				totalHistory,

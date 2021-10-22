@@ -5,7 +5,7 @@ export const useFirestoreList = (uid, target) => {
 	const [documents, setDocuments] = useState([]);
 
 	useEffect(() => {
-		let collectionRef = db.collection(`users/${uid}/words`).orderBy('createdAt');
+		let collectionRef = db.collection(`users/${uid}/words`)/* .orderBy('createdAt') */;
 
 		collectionRef = collectionRef.where(target, '==', true);
 
@@ -27,7 +27,7 @@ export const useFirestoreNotInRevisionList = (uid) => {
 	const [documents, setDocuments] = useState([]);
 
 	useEffect(() => {
-		let collectionRef = db.collection(`users/${uid}/words`).orderBy('createdAt');
+		let collectionRef = db.collection(`users/${uid}/words`)/* .orderBy('createdAt') */;
 
 		collectionRef = collectionRef
 			.where('isInRevision', '==', false)

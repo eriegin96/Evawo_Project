@@ -11,7 +11,7 @@ import { addToRevision, removeFromRevision, removeToTrash } from '../../../fireb
 export default function HistoryPage() {
 	const { user } = useContext(AuthContext);
 	const { historyList, totalHistory, revisionList, notRevisionList } = useContext(AppContext);
-	const [pageSize, setPageSize] = useState(5);
+	const [pageSize, setPageSize] = useState(10);
 	const [selectionModel, setSelectionModel] = useState([]);
 	const [isViewMode, setIsViewMode] = useState(true);
 	const [isBtnDisabled, setIsBtnDisabled] = useState(true);

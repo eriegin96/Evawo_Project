@@ -1,14 +1,60 @@
-import React, { useContext } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { NavLink, Link, useHistory } from 'react-router-dom';
 import { AppBar, Button, Box, Toolbar, Tooltip } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import './header.scss';
 import UserAvatar from './UserAvatar';
-import { AuthContext } from '../../context/AuthProvider';
 import UserNotification from './UserNotification';
+import { AuthContext } from '../../context/AuthProvider';
+import { AppContext } from '../../context/AppProvider';
+import { wordList } from '../../features/Word/dbWordList';
+import { addWord } from '../../firebase/services';
+import wordApi from '../../api/wordApi';
 
 function LoggedIn() {
+	const { user } = useContext(AuthContext);
+	const { totalWords } = useContext(AppContext);
+	const history = useHistory();
+	const [isBtnLoading, setIsBtnLoading] = useState(false);
+
+	function newWord() {
+		setIsBtnLoading(true);
+		const randomWord = wordList[Math.floor(Math.random() * 233464)];
+		const fetchWord = async () => {
+			try {
+				const res = await wordApi.getWord(randomWord);
+				const newFetchWord = {
+					id: totalWords + 1,
+					...res,
+				};
+				addWord(user.uid, (totalWords + 1).toString(), newFetchWord);
+				setIsBtnLoading(false);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+
+		fetchWord();
+	}
+
 	return (
 		<>
+			<Box flexGrow={4}></Box>
+			<Tooltip title="Create new Word">
+				<LoadingButton
+					variant="outlined"
+					color="secondary"
+					onClick={() => {
+						history.push('/');
+						newWord();
+					}}
+					loading={isBtnLoading}
+					sx={{ left: 'unset' }}
+				>
+					New Word
+				</LoadingButton>
+			</Tooltip>
+			<Box flexGrow={4}></Box>
 			<Box>
 				<Tooltip title="Go to History">
 					<NavLink to="/history" className="nav__link">
@@ -26,7 +72,6 @@ function LoggedIn() {
 					</NavLink>
 				</Tooltip>
 			</Box>
-			<Box sx={{ flexGrow: 1 }} />
 			<Box>
 				{/* <UserNotification /> */}
 				<UserAvatar />

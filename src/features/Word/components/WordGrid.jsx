@@ -30,9 +30,9 @@ export default function WordGrid(props) {
 				{word.type && <div>{word.type}</div>}
 			</Grid>
 			{isEditing
-				? wordMeaning.map((item) => (
+				? wordMeaning.map((item, i) => (
 						<WordEditInput
-							key={item.title}
+							key={i}
 							children={item.title}
 							value={item.content}
 							handleChange={(e) => changeInput(e, item.title)}
@@ -40,12 +40,15 @@ export default function WordGrid(props) {
 				  ))
 				: wordMeaning
 						.filter((item) => !!item.content)
-						.map((item) => (
-							<React.Fragment key={item.title}>
-								<Grid item xs={3} children={item.title} />
-								<Grid item xs={7} children={item.content} />
-								<Grid item xs={2} />
-							</React.Fragment>
+						.map((item, i) => (
+							<div className="word-page__text-container" key={i}>
+								<div className="word-page__text">
+									<div>
+										<strong>{item.title}</strong>
+									</div>
+									<div>{item.content}</div>
+								</div>
+							</div>
 						))}
 		</>
 	);

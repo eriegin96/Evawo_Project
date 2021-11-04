@@ -23,4 +23,28 @@ audio {
 
 .word-page__btn {
 	margin: 0 8px !important;
-} 
+}
+
+.word-page__text-container {
+	width: 100%;
+	margin: 8px 0;
+
+	.word-page__text {
+		max-width: 600px;
+		padding-left: 50px;
+		margin: auto;
+
+		div {
+			display: inline-block;
+		}
+
+		div:first-child {
+			width: 100px;
+			vertical-align: top;
+		}
+
+		div:last-child {
+			width: 450px;
+		}
+	}
+}

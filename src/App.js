@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from '@mui/material';
 import '@fontsource/roboto';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { AuthContext } from './context/AuthProvider';
 import Header from './components/Header/Header';
@@ -16,25 +16,20 @@ import TrashPage from './features/History/pages/TrashPage';
 // import RevisionPage from './features/Revision/pages/RevisionPage';
 import UserPage from './features/User/pages/UserPage';
 
-// const theme = createTheme({
-// 	palette: {
-// 		primary: {
-// 			light: '#c158dc',
-// 			main: '#8e24aa',
-// 			dark: '#5c007a',
-// 			contrastText: '#fff',
-// 		},
-// 		secondary: {
-// 			light: '##ffad42',
-// 			main: '#f57c00',
-// 			dark: '#bb4d00',
-// 			contrastText: '#000',
-// 		},
-// 		white: {
-// 			main: '#fff',
-// 		},
-// 	},
-// });
+const theme = createTheme({
+	palette: {
+		type: 'light',
+    primary: {
+      main: '#616664',
+    },
+		secondary: {
+			main: '#fff'
+		},
+    background: {
+      default: '#e8d5b4',
+    },
+	},
+});
 
 export default function App() {
 	const {
@@ -42,7 +37,7 @@ export default function App() {
 	} = useContext(AuthContext);
 	return (
 		<React.Fragment>
-			{/* <ThemeProvider theme={theme}> */}
+			<ThemeProvider theme={theme}>
 			<Header />
 			<Container>
 				<div className="container">
@@ -66,7 +61,7 @@ export default function App() {
 					)}
 				</div>
 			</Container>
-			{/* </ThemeProvider> */}
+			</ThemeProvider>
 		</React.Fragment>
 	);
 }

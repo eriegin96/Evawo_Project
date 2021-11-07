@@ -38,7 +38,7 @@ export default function WordButtons(props) {
 					>
 						Edit
 					</LoadingButton>
-					<LoadingButton
+					{/* <LoadingButton
 						onClick={handleSetRevision}
 						loading={isBtnLoading}
 						variant="contained"
@@ -46,7 +46,7 @@ export default function WordButtons(props) {
 						className="word-page__btn"
 					>
 						Set Revision
-					</LoadingButton>
+					</LoadingButton> */}
 					<Button
 						variant="contained"
 						color="error"

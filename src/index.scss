@@ -21,7 +21,8 @@ code {
 }
 
 .container {
-	padding: 25px 0;
+	padding: 25px 0 0;
+	height: 550px;
 }
 
 .MuiGrid-grid-xs-12 {
@@ -32,3 +33,12 @@ code {
 	text-align: right;
 }
 
+.MuiToolbar-root {
+	position: relative;
+
+	.MuiLoadingButton-root {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}

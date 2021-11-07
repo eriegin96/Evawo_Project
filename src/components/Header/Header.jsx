@@ -40,20 +40,18 @@ function LoggedIn() {
 	return (
 		<>
 			<Box flexGrow={4}></Box>
-			<Tooltip title="Create new Word">
-				<LoadingButton
-					variant="outlined"
-					color="secondary"
-					onClick={() => {
-						history.push('/');
-						newWord();
-					}}
-					loading={isBtnLoading}
-					sx={{ left: 'unset' }}
-				>
-					New Word
-				</LoadingButton>
-			</Tooltip>
+			<LoadingButton
+				variant="outlined"
+				color="secondary"
+				onClick={() => {
+					history.push('/');
+					newWord();
+				}}
+				loading={isBtnLoading}
+				sx={{ left: 'unset', fontWeight: 600, fontSize: '17px' }}
+			>
+				New Word
+			</LoadingButton>
 			<Box flexGrow={4}></Box>
 			<Box>
 				<Tooltip title="Go to History">

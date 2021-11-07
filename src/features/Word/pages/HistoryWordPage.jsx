@@ -63,7 +63,7 @@ export default function HistoryWordPage() {
 			{!word ? (
 				<CircularProgress className="word-page--loading" />
 			) : (
-				<>
+				<div className="word-page__wrapper">
 					<Grid container spacing={2}>
 						{isEditing ? (
 							<Grid item xs={12}>
@@ -89,7 +89,7 @@ export default function HistoryWordPage() {
 						/>
 					</Grid>
 					<Toast open={isToastOpen} setOpen={setIsToastOpen} />
-				</>
+				</div>
 			)}
 		</>
 	);

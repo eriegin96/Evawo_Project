@@ -20,10 +20,7 @@ export default function WordGrid(props) {
 						{word.phonetic} &nbsp;
 						<audio id="word__audio" src={word.audio}></audio>
 						<Tooltip title="Click to hear">
-							<SurroundSoundIcon
-								onClick={handleAudioClick}
-								className="word-page__sound"
-							/>
+							<SurroundSoundIcon onClick={handleAudioClick} className="word-page__sound" />
 						</Tooltip>
 					</div>
 				)}

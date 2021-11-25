@@ -4,7 +4,6 @@ import { AppBar, Button, Box, Toolbar, Tooltip } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import './header.scss';
 import UserAvatar from './UserAvatar';
-import UserNotification from './UserNotification';
 import { AuthContext } from '../../context/AuthProvider';
 import { AppContext } from '../../context/AppProvider';
 import { wordList } from '../../features/Word/dbWordList';
@@ -59,11 +58,6 @@ function LoggedIn() {
 						History
 					</NavLink>
 				</Tooltip>
-				{/* <Tooltip title="Go to Revision">
-					<NavLink to="/revision" className="nav__link">
-						Revision
-					</NavLink>
-				</Tooltip> */}
 				<Tooltip title="Go to Trash">
 					<NavLink to="/trash" className="nav__link">
 						Trash
@@ -71,7 +65,6 @@ function LoggedIn() {
 				</Tooltip>
 			</Box>
 			<Box>
-				{/* <UserNotification /> */}
 				<UserAvatar />
 			</Box>
 		</>

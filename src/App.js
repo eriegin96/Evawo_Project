@@ -13,7 +13,6 @@ import NewWordPage from './features/Word/pages/NewWordPage';
 import HistoryWordPage from './features/Word/pages/HistoryWordPage';
 import HistoryPage from './features/History/pages/HistoryPage';
 import TrashPage from './features/History/pages/TrashPage';
-// import RevisionPage from './features/Revision/pages/RevisionPage';
 import UserPage from './features/User/pages/UserPage';
 
 const theme = createTheme({

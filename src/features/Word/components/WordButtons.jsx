@@ -4,7 +4,7 @@ import { Button, Grid } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 export default function WordButtons(props) {
-	const { isEditing, setIsEditing, submitWordEdit, isBtnLoading, handleSetRevision } = props;
+	const { isEditing, setIsEditing, submitWordEdit, isBtnLoading } = props;
 	const history = useHistory();
 
 	return (

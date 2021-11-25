@@ -94,20 +94,3 @@ export const removeToArchive = (uid, wordIds) => {
 	const userRefData = { totalTrash: increase(-1), totalArchive: increase(1) };
 	editList(uid, wordIds, wordRefData, userRefData);
 };
-
-export const addToRevision = (uid, wordIds) => {
-	const wordRefData = { isInRevision: true };
-	const userRefData = { totalRevision: increase(1) };
-	editList(uid, wordIds, wordRefData, userRefData);
-};
-
-export const editRevision = (uid, wordId, data) => {
-	const wordRef = db.doc(`users/${uid}/words/${wordId}`);
-	wordRef.update({ revisionTime: data });
-};
-
-export const removeFromRevision = (uid, wordIds) => {
-	const wordRefData = { isInRevision: false };
-	const userRefData = { totalRevision: increase(-1) };
-	editList(uid, wordIds, wordRefData, userRefData);
-};

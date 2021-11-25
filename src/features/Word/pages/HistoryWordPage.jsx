@@ -38,10 +38,6 @@ export default function HistoryWordPage() {
 		setWord(newObj);
 	};
 
-	const handleSetRevision = () => {
-		console.log(word.createdAt.toDate().getDay())
-	}
-
 	const submitWordEdit = () => {
 		setIsBtnLoading(true);
 		updateWord(user.uid, word.id.toString(), {
@@ -85,7 +81,6 @@ export default function HistoryWordPage() {
 							isBtnLoading={isBtnLoading}
 							submitWordEdit={submitWordEdit}
 							setIsEditing={setIsEditing}
-							handleSetRevision={handleSetRevision}
 						/>
 					</Grid>
 					<Toast open={isToastOpen} setOpen={setIsToastOpen} />

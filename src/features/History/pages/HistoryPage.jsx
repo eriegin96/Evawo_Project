@@ -7,7 +7,7 @@ import RemoveWordDialog from '../components/RemoveWordDialog';
 import { removeToTrash } from '../../../firebase/services';
 
 export default function HistoryPage() {
-	const { historyList, totalHistory, notRevisionList } = useContext(AppContext);
+	const { historyList, totalHistory } = useContext(AppContext);
 	const [pageSize, setPageSize] = useState(10);
 	const [selectionModel, setSelectionModel] = useState([]);
 	const [isViewMode, setIsViewMode] = useState(true);
